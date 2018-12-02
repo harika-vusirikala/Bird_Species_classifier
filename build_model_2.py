@@ -7,13 +7,14 @@ from keras.layers import *
 from keras.optimizers import RMSprop,adam
 from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
+from keras import regularizers
 
-x_train = np.load("data/train_data.npy")
-y_train = np.load("data/train_labels.npy")
-x_test = np.load("data/test_data.npy")
-y_test = np.load("data/test_labels.npy")
+x_train = np.load("data/train_data_50.npy")
+y_train = np.load("data/train_labels_50.npy")
+x_test = np.load("data/test_data_50.npy")
+y_test = np.load("data/test_labels_50.npy")
 
-num_classes = 201
+num_classes = 51
 #print(y_train)
 
 #seed = 5
@@ -56,9 +57,7 @@ model.add(Dense(256,input_dim=1024, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(1024, activation='relu'))
 
-model.add(Dense(200,activation="softmax"))
-
-model.summary()'''
+model.add(Dense(200,activation="softmax"))'''
 
 model.add(Conv2D(filters=16,kernel_size=2,padding="same",activation="relu",input_shape=(100,100,3)))
 model.add(MaxPooling2D(pool_size=2))
@@ -68,10 +67,11 @@ model.add(Conv2D(filters=64,kernel_size=2,padding="same",activation="relu"))
 model.add(MaxPooling2D(pool_size=2))
 model.add(Dropout(0.2))
 model.add(Flatten())
-model.add(Dense(500,activation="relu"))
-model.add(Dropout(0.2))
+model.add(Dense(500,activation="relu",kernel_regularizer=regularizers.l2(0.01)))
+model.add(Dropout(0.25))
 model.add(Dense(num_classes,activation="softmax"))
 
+model.summary()
 adam = adam(lr = 0.01)
 datagenerator = ImageDataGenerator(
         featurewise_center=False,
@@ -88,9 +88,9 @@ datagenerator = ImageDataGenerator(
 #datagenerator.fit(x_train)
 
 #model.compile(optimizer=optimizer,loss='mean_squared_error',metrics=['accuracy'])
-model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-training_history = model.fit(x_train,y_train,batch_size = 100,epochs = 50, verbose = 2)
-model.save('Bird_classifier_model4.h5')
+model.compile(loss='categorical_crossentropy',optimizer=adam,metrics=['accuracy'])
+training_history = model.fit(x_train,y_train,batch_size = 100,epochs = 50, verbose = 2,validation_split=0.1)
+model.save('Model/Bird_classifier_model8.h5')
 print('Model saved to disk')
 
 plt.plot(training_history.history['acc'])
