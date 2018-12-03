@@ -7,11 +7,12 @@ from keras.layers import *
 from keras.optimizers import RMSprop
 from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
+from keras.layers.normalization import BatchNormalization
 
 x_train = np.load("data/train_data.npy")
 y_train = np.load("data/train_labels.npy")
 
-num_classes = 200
+num_classes = 201
 #print(y_train)
 
 seed = 5
@@ -44,14 +45,14 @@ model.add(MaxPooling2D(pool_size= (2,2)))
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(256,input_dim=1024, activation='relu'))
+model.add(Dense(256,input_dim=1024, activation='relu',kernel_regularizer=regularizers.l2(0.01)))
 model.add(Dropout(0.5))
 
-model.add(Dense(200,activation="softmax"))
+model.add(Dense(num_classes,activation="softmax"))
 
 model.summary()
 
-#optimizer = RMSprop(lr=0.0001,rho=0.9,epsilon = 1e-08,decay = 0.0)
+optimizer = RMSprop(lr=0.001,rho=0.9,epsilon = 1e-08,decay = 0.0)
 
 datagenerator = ImageDataGenerator(
         featurewise_center=False,
@@ -68,10 +69,10 @@ datagenerator = ImageDataGenerator(
 datagenerator.fit(x_train)
 
 #model.compile(optimizer=optimizer,loss='mean_squared_error',metrics=['accuracy'])
-model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',optimizer=optimizer,metrics=['accuracy'])
 training_history = model.fit_generator(datagenerator.flow(x_train,y_train,batch_size = 200),epochs = 350,verbose = 2,
                     steps_per_epoch = x_train.shape[0]//200)
-model.save('Bird_classifier_adam_v2.h5')
+model.save('Model/Bird_classifier_adam_v8.h5')
 print('Model saved to disk')
 
 plt.plot(training_history.history['acc'])
