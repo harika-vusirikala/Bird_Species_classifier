@@ -1,4 +1,4 @@
-'''Name         : bird_classifier_test.npy
+'''Name         : Image_processing.py
    Date         : 11/12/18
    Author       : Harika Vusirikala
    Description  : This program loads the training data from the local disk and trains the model.
