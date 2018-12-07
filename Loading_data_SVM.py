@@ -1,4 +1,7 @@
-'''This program loads the data and saves them to the local machine for further use
+'''Name        : Loading_data_SVM.npy
+   Date        : 11/27/18
+   Author      : Harika Vusirikala
+   Description : This program loads the data and saves them to the local machine for further use
     Base Directory: CUB_200_2011
     Images Directory : CUB_200_2011/images
 '''
@@ -50,25 +53,21 @@ with open(base_dir+'/train_test_split.txt') as file:
         elif split_line[1] == '0':
             test_set.append(split_line[0])
 
-#train_data = []
-#train_labels = []
+train_data = []
+train_labels = []
 test_data = []
 test_labels = []
 
 # Reading each image in the training set and croping it to size 224 X 224
 # and adding it to the training data. Corresponding label is added to
 # training labels
-'''for train_image_id in train_set:
-    #print(train_image_id)
-    #img = mpimg.imread(images_dir+images_set[train_image_id])
-
+for train_image_id in train_set:
     image =cv2.imread(images_dir+images_set[train_image_id])
-    gray_image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-    #image = Image.fromarray(image,'RGB')
-    image = Image.fromarray(gray_image)
+    image = Image.fromarray(image,'RGB')
     resize_img = image.resize((100,100))
     normalize_array = np.array(resize_img)/255
     #print(normalize_array.shape)
+    # Data is flattened
     train_data.append(normalize_array.flatten())
     train_labels.append(int(image_class_set[train_image_id])-1)
 
@@ -78,15 +77,13 @@ train_labels = np.array(train_labels)
 print("Saving Training data")
 np.save("data/train_data_BW",train_array_data)
 print("Saving Training labels")
-np.save("data/train_labels_BW",train_labels)'''
+np.save("data/train_labels_BW",train_labels)
 # Reading each image in the testing set and croping it to size 244 X 244
 # and adding it to the testing data. Corresponding label is added to
 # testing labels
 for test_image_id in test_set:
     image = cv2.imread(images_dir + images_set[test_image_id])
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # image = Image.fromarray(image,'RGB')
-    image = Image.fromarray(gray_image)
+    image = Image.fromarray(image, 'RGB')
     resize_img = image.resize((100, 100))
     normalize_array = np.array(resize_img) / 255
     # print(normalize_array.shape)
