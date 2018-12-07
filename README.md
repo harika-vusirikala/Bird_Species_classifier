@@ -1,5 +1,5 @@
 # Bird_Species_classifier
-A Deep Neural Network to classify 200 bird species 
+A Deep Neural Network to classify 200 bird species. A CNN Model is created to classify the bird species
 
 Loading_data.py - Loads the data from CUB-200-2011 dataset, splits the data into training and test data. Saves this data to local disk. Generates 4 files train_set.npy, train_labels.npy, test_set.npy, test_labels.npy
 
