@@ -1,4 +1,4 @@
-'''Name         : bird_classifier_test.npy
+'''Name         : Loading_data.py
    Date         : 11/08/18
    Author       : Harika Vusirikala
    Description  : This program loads the data and saves them to the local machine for further use
