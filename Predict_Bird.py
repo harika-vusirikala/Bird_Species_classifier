@@ -1,4 +1,4 @@
-'''Name         : bird_classifier_test.npy
+'''Name         : Predict_Bird.py
    Date         : 12/04/18
    Author       : Harika Vusirikala
    Description  : This module predicts the bird species present in the image
