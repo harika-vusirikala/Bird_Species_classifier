@@ -1,6 +1,12 @@
-'''This program loads the data and saves them to the local machine for further use
-    Base Directory: CUB_200_2011
-    Images Directory : CUB_200_2011/images
+'''Name         : bird_classifier_test.npy
+   Date         : 11/08/18
+   Author       : Harika Vusirikala
+   Description  : This program loads the data and saves them to the local machine for further use
+   Dependencies : CUB_200_2011/images,
+                  CUB_200_2011/images.txt,
+                  CUB_200_2011/classes.txt,
+                  CUB_200_2011/image_class_labels.txt,
+                  CUB_200_2011/train_test_split.txt
 '''
 
 import numpy as np
@@ -60,31 +66,33 @@ test_labels = []
 # Reading each image in the training set and croping it to size 224 X 224
 # and adding it to the training data. Corresponding label is added to
 # training labels
-'''for train_image_id in train_set:
-    image =cv2.imread(images_dir+images_set[train_image_id])
-    image = Image.fromarray(image,'RGB')
-    resize_img = image.resize((im_rows,im_cols))
-    normalize_array = np.array(resize_img).astype('float32')/255
-    train_data.append(normalize_array)
-    train_labels.append(image_class_set[train_image_id])
+for train_image_id in train_set:
+    if int(image_class_set[train_image_id]) in range(0,51):
+        image =cv2.imread(images_dir+images_set[train_image_id])
+        image = Image.fromarray(image,'RGB')
+        resize_img = image.resize((im_rows,im_cols))
+        normalize_array = np.array(resize_img).astype('float32')/255
+        train_data.append(normalize_array)
+        train_labels.append(image_class_set[train_image_id])
 
 train_array_data = np.array(train_data)
 print(train_array_data.shape)
 train_labels = np.array(train_labels)
 print("Saving Training data")
-np.save("data/train_data",train_array_data)
+np.save("data/train_data_50",train_array_data)
 print("Saving Training labels")
-np.save("data/train_labels",train_labels)'''
+np.save("data/train_labels_50",train_labels)
 # Reading each image in the testing set and croping it to size 244 X 244
 # and adding it to the testing data. Corresponding label is added to
 # testing labels
 for test_image_id in test_set:
-    image =cv2.imread(images_dir+images_set[test_image_id])
-    image = Image.fromarray(image, 'RGB')
-    resize_img = image.resize((im_rows, im_cols))
-    normalize_array = np.array(resize_img).astype('float32') / 255
-    test_data.append(normalize_array)
-    test_labels.append(image_class_set[test_image_id])
+    if int(image_class_set[test_image_id]) in range(0, 51):
+        image =cv2.imread(images_dir+images_set[test_image_id])
+        image = Image.fromarray(image, 'RGB')
+        resize_img = image.resize((im_rows, im_cols))
+        normalize_array = np.array(resize_img).astype('float32') / 255
+        test_data.append(normalize_array)
+        test_labels.append(image_class_set[test_image_id])
 
 # converting each array to a numpy array
 test_data = np.array(test_data)
@@ -92,6 +100,6 @@ test_labels = np.array(test_labels)
 print(test_data.shape)
 # Saving the data local directory so that it can be loaded later.
 print("Saving Testing data")
-np.save("data/test_data",test_data)
+np.save("data/test_data_50",test_data)
 print("Saving Testing labels")
-np.save("data/test_labels",test_labels)
+np.save("data/test_labels_50",test_labels)
