@@ -1,4 +1,4 @@
-'''Name        : Loading_data_SVM.npy
+'''Name        : Loading_data_SVM.py
    Date        : 11/27/18
    Author      : Harika Vusirikala
    Description : This program loads the data and saves them to the local machine for further use
