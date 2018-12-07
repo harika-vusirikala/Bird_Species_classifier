@@ -1,4 +1,4 @@
-'''Name         : Train_SVM.npy
+'''Name         : Train_SVM.py
    Date         : 11/27/18
    Author       : Harika Vusirikala
    Description  : This program loads training and testing data from the local device and trains and tests an SVM
